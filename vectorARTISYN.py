@@ -103,7 +103,10 @@ class Prompt():
         self.adjective = ""
         self.noun = ""
         self.adverb = ""
-        self.prompt = ""
+        self.prompt = """Craft Etsy-like art: Implement [adjective] hues into a [noun] , conjuring feelings of [noun] 
+        . Create [adjective] scenes with [adjective]  [noun]  and  [adjective]  [noun ]. Imagine a [noun] of [
+        adjective] [noun] where imagination roams. Blend delicate details for [adjective] allure. Let [adjective] [
+        noun] unfold through intricate [noun]. Express the Etsy spirit in AI art!"""
     def choose_word_from_dict(self, dict_of_words):
          return dict_of_words[self.category][randint(0, len(dict_of_words) - 1)]
 
@@ -116,9 +119,24 @@ class Prompt():
     def generate_adv(self):
         self.adverb = self.choose_word_from_dict(adverb_groups)
 
-    def substitute_word(self, placeholder_string):
-        for word in self.prompt.split():
+    def substitute_word(self):
+        prompt = self.prompt.split()
+        for index, word in enumerate(prompt):
             if word == "[noun]":
-                word = self.generate_adj()
-                if word == "[adjective]":
-                    if word == "[adverb]":
+                self.generate_noun()
+                word = self.noun
+                prompt[index] = word
+                self.prompt = ' '.join(prompt)
+            if word == "[adjective]":
+                self.generate_adj()
+                word = self.adjective
+                prompt[index] = word
+                self.prompt = ' '.join(prompt)
+            if word == "[adverb]":
+                self.generate_adv()
+                word = self.adverb
+                prompt[index] = word
+                self.prompt = ' '.join(prompt)
+        print(self.prompt)
+
+

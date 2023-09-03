@@ -271,7 +271,7 @@ class Prompt():
         elif word_type == "s.noun":
             return random.choice(setting_nouns[self.category])  # You can choose a category here
         elif word_type == "e.noun":
-            return random.choice(emotional_nouns[self.category])  # You can choose a category here
+            return random.choice(emotional_nouns[self.category])
         else:
             return "UNKNOWN"
 
